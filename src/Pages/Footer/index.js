@@ -52,7 +52,7 @@ export default function FooterSimple() {
     <Box
       bottom={0}
       w="100%"
-      bg={useColorModeValue('brand.primary', 'brand.primary')}
+      bgGradient="linear(to-tl,brand.secondary, brand.primary)"
       as='section'
       color={"white"}>
       

@@ -128,7 +128,7 @@ const DesktopNav = () => {
     return (
         <Stack direction={'row'} spacing={4}>
             {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label}>
+                <Box key={navItem.label} >
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
                             <Link
@@ -142,7 +142,7 @@ const DesktopNav = () => {
                                 _hover={{
                                     textDecoration: 'none',
                                     color: "white",
-                                    bg: linkHoverColor
+                                    bgGradient: "linear(to-tr,brand.secondary, brand.primary)"
                                 }}>
                                 {navItem.label}
                             </Link>
@@ -290,7 +290,7 @@ const MobileNavItem = ({ label, children, href }) => {
  */
 const NAV_ITEMS = [
     {
-        label: 'Accueil',
+        label: 'Home',
         href: '/',
     },
     {
