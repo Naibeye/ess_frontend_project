@@ -28,6 +28,12 @@ import * as yup from "yup";
 import { useToast } from '@chakra-ui/react'
 import { roles } from '../data';
 
+/**
+ * A form component that allows users to enter their name, email, and role.
+ * @param {Object} props - The component props.
+ * @param {Function} props.onClose - The function to call when the form is closed.
+ * @returns The UserForm component.
+ */
 const UserForm = ({
     onClose
 }) => {

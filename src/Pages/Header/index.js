@@ -273,6 +273,14 @@ const DesktopNav = ({
     );
 };
 
+/**
+ * A component that represents a desktop sub-navigation item.
+ * @param {Object} props - The props for the component.
+ * @param {string} props.label - The label of the sub-navigation item.
+ * @param {string} props.href - The URL to navigate to when the item is clicked.
+ * @param {string} props.subLabel - The sub-label of the sub-navigation item.
+ * @returns A React component representing a desktop sub-navigation item.
+ */
 const DesktopSubNav = ({ label, href, subLabel }) => {
     return (
         <Link
