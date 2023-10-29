@@ -62,6 +62,7 @@ export default function Header() {
                         }
                         variant={'ghost'}
                         aria-label={'Toggle Navigation'}
+                        color={'white'}
                     />
                 </Flex>
                 <Flex 
@@ -69,12 +70,12 @@ export default function Header() {
                 flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
 
                     <Image
-                        w='200px'
-                        h="60px"
-                        
+                        // w='200px'
+                        // h="60px"
+                        sizeBox={{ base: 'md', md: 'xs' }}
                         objectFit='cover'
                         src={Logo}
-                        alt='2Asoeurs logo'
+                        alt='ESS'
                         mx={2}
                     />
 
