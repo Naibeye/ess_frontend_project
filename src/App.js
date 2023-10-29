@@ -1,40 +1,46 @@
 import React from 'react';
 import {
   ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
+  extendTheme,
+  Box
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import RouteApplication from './Route';
+import FooterSimple from './Pages/Footer';
+import Header from './Pages/Header';
+import { GlobalProvider } from './Pages/Context';
 
+
+const colors = {
+  brand: {
+    primary:'#006600',
+    secondary:"#9E9C09",
+  },
+  fonts: {
+    heading: "Poppins",
+    body: "poppins",
+  },
+}
+const breakpoints = {
+  sm: '320px',
+  md: '768px',
+  lg: '960px',
+  xl: '1200px',
+  '2xl': '1536px',
+}
+
+// 3. Extend the theme
+// const theme = extendTheme({ breakpoints })
+const theme = extendTheme({ colors ,breakpoints })
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
+      <GlobalProvider >
+      <Header/>
+      <Box minH="100vh" as="section" minW={{ base: "full", md: "100%", lg: "90%" }}>
+      <RouteApplication />
       </Box>
+      <FooterSimple/>
+      </GlobalProvider>
     </ChakraProvider>
   );
 }
