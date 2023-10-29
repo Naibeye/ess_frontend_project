@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import UserForm from './UserForm'
 import {
     useDisclosure,
@@ -15,6 +15,7 @@ import {
 import Datatable from '../Composants/datatable'
 import { BsListCheck } from 'react-icons/bs'
 import { users } from '../data'
+import { GlobalContext } from '../Context'
 
 /**
  * Renders the Administration component.
@@ -34,6 +35,7 @@ function Administration() {
      */
     const [data, setData] = useState(users)
     const [item, setItem] = useState({})
+    const {dataUser} =useContext(GlobalContext)
     const onGet = () => {
 
     }
@@ -67,6 +69,8 @@ function Administration() {
                 setData={setData}
                 setItem={setItem}
                 onToggle={onToggle}
+                canAdd={dataUser?.role===1}
+                canEdit={dataUser?.role===1}
             />
             <Fade in={isOpen}>
                 <Modal isOpen={isOpen} onClose={onClose} size="3xl" >

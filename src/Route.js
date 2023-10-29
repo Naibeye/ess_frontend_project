@@ -4,9 +4,15 @@ import Home from "./Pages/Home";
 import Task from "./Pages/Task";
 import Login from "./Pages/Login";
 import Administration from "./Pages/Administration";
+import { GlobalContext } from "./Pages/Context";
 
 
 const RouteApplication = () => {
+    const context=useContext(GlobalContext)
+    useEffect(() => {
+      console.log(context)
+    }, [])
+    
 
 
     return (

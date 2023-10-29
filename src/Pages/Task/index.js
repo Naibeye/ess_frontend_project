@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
     useDisclosure,
     Box,
@@ -15,6 +15,7 @@ import Datatable from '../Composants/datatable'
 import { BsListCheck } from 'react-icons/bs'
 import { tasks } from '../data'
 import TaskForm from './TaskForm'
+import { GlobalContext } from '../Context'
 
 
 function Task() {
@@ -30,7 +31,9 @@ function Task() {
      * @returns An array containing the state variable and the function to update the state.
      */
     const [data, setData] = useState(tasks)
+
     const [item, setItem] = useState({})
+    const {dataUser}=useContext(GlobalContext)
     const onGet = () => {
 
     }
@@ -65,6 +68,8 @@ function Task() {
                 setData={setData}
                 setItem={setItem}
                 onToggle={onToggle}
+                canAdd={dataUser?.role===1}
+                canEdit={dataUser?.role===1}
             />
             <Fade in={isOpen}>
                 <Modal isOpen={isOpen} onClose={onClose} size="3xl" >

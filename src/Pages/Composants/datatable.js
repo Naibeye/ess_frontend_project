@@ -16,7 +16,9 @@ function Datatable({
   title,
   icon,
   setItem,
-  onToggle
+  onToggle,
+  canAdd,
+  canEdit,
 }) {
   const [rows, setRows] = React.useState([])
   const [dataColumns, setDataColumns] = React.useState([])
@@ -58,7 +60,7 @@ function Datatable({
               {title}
             </Button>
             <Spacer />
-            <Button
+            {canAdd && <Button
               onClick={() => {
                 setItem({})
                 onToggle()
@@ -71,7 +73,7 @@ function Datatable({
               leftIcon={<MdAdd />}
             >
               {"Add new"}
-            </Button>
+            </Button>}
           </Flex>
         }
 
@@ -85,8 +87,11 @@ function Datatable({
           onRowClick={(event, rowData) => {
             event.preventDefault()
             console.log("first", rowData)
-            setItem(rowData)
-            onToggle()
+            if (canEdit){
+                setItem(rowData)
+                onToggle()
+            }
+            
 
           }}
           options={{

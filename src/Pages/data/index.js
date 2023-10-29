@@ -3,6 +3,7 @@ export const users = [{
     name: "John",
     lastname: "Doe",
     email: "doe@yopmail.com",
+    password: "@dminp@ssw0rd2023",
     role: 1
 },
 {
@@ -10,6 +11,7 @@ export const users = [{
     name: "Jane",
     lastname: "Doe",
     email: "jane@yopmail.com",
+    password: "Userp@ssw0rd2023",
     role: 2
 },
 ]

@@ -78,7 +78,7 @@ const UserForm = ({
                 <Flex>
                 <FormControl mr="5%" isInvalid={errors?.email}>
                     <FormLabel htmlFor="email" fontWeight={'normal'}>
-                        Email address*
+                        Email address
                     </FormLabel>
                     <Input id="email" type="email" {...register("email")} name="mail" placeholder="Enter the email" />
                     <FormErrorMessage>

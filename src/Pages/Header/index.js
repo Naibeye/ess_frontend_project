@@ -1,3 +1,4 @@
+import React, {useContext, useEffect} from 'react'
 import {
     Box,
     Flex,
@@ -36,6 +37,7 @@ import {
 } from '@chakra-ui/icons';
 import Logo from '../../Media/images/logo.png'
 import LoginForm from '../Login';
+import { GlobalContext } from '../Context';
 /**
  * The Header component displays the header section of a website. It includes a toggle for
  * color mode, a navigation menu, and buttons for login and color mode toggle.
@@ -45,6 +47,11 @@ export default function Header() {
     const { colorMode, toggleColorMode } = useColorMode();
     const { isOpen: isOpenLogin, onClose: onCloseLogin, onToggle: onToggleLogin } = useDisclosure()
     const { isOpen, onClose, onToggle } = useDisclosure()
+    const  {login, dataUser} = useContext(GlobalContext)
+    useEffect(() => {
+      console.log("DataUser", dataUser)
+    }, [dataUser])
+    
 
     return (
         <>
@@ -91,7 +98,7 @@ export default function Header() {
                         />
 
                         <Flex display={{ base: 'none', md: 'flex' }} ml={10} p={3}>
-                            <DesktopNav />
+                            <DesktopNav dataUser={dataUser}/>
                         </Flex>
                     </Flex>
 
@@ -175,7 +182,9 @@ export default function Header() {
  * Renders a desktop navigation component with links and sub-navigation items.
  * @returns The JSX element representing the desktop navigation component.
  */
-const DesktopNav = () => {
+const DesktopNav = ({
+    dataUser
+}) => {
     const linkColor = useColorModeValue('gray.600', 'white');
     const linkHoverColor = useColorModeValue('brand.primary', 'brand.primary');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
@@ -183,6 +192,7 @@ const DesktopNav = () => {
     return (
         <Stack direction={'row'} spacing={4}>
             {NAV_ITEMS.map((navItem) => (
+                navItem?.roles? navItem?.roles?.includes(dataUser?.role) &&
                 <Box key={navItem.label} >
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
@@ -219,7 +229,45 @@ const DesktopNav = () => {
                             </PopoverContent>
                         )}
                     </Popover>
-                </Box>
+                </Box>:
+                <Box key={navItem.label} >
+                <Popover trigger={'hover'} placement={'bottom-start'}>
+                    <PopoverTrigger>
+                        <Link
+                            p={2}
+                            href={navItem.href ?? '#'}
+                            fontSize={'sm'}
+                            fontWeight={500}
+                            p={2}
+                            rounded={'md'}
+                            // color={linkColor}
+                            _hover={{
+                                textDecoration: 'none',
+                                color: "white",
+                                bgGradient: "linear(to-tr,brand.secondary, brand.primary)"
+                            }}>
+                            {navItem.label}
+                        </Link>
+                    </PopoverTrigger>
+
+                    {navItem.children && (
+                        <PopoverContent
+                            border={0}
+                            boxShadow={'xl'}
+                            bg={popoverContentBgColor}
+                            p={4}
+                            rounded={'xl'}
+                            minW={'sm'}>
+                            <Stack>
+                                {navItem.children.map((child) => (
+                                    <DesktopSubNav key={child.label} {...child} />
+                                ))}
+                            </Stack>
+                        </PopoverContent>
+                    )}
+                </Popover>
+            </Box>
+            
             ))}
         </Stack>
     );
@@ -265,14 +313,16 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
  * Renders the mobile navigation component.
  * @returns {JSX.Element} - The rendered mobile navigation component.
  */
-const MobileNav = () => {
+const MobileNav = ({
+    dataUser
+}) => {
     return (
         <Stack
             bg={useColorModeValue('white', 'gray.800')}
             p={4}
             display={{ md: 'none' }}>
             {NAV_ITEMS.map((navItem) => (
-                <MobileNavItem key={navItem.label} {...navItem} />
+                navItem?.roles? navItem?.roles?.includes(dataUser?.role) &&<MobileNavItem key={navItem.label} {...navItem} dataUser={dataUser} />:<MobileNavItem key={navItem.label} {...navItem} dataUser={dataUser} />
             ))}
         </Stack>
     );
@@ -351,9 +401,11 @@ const NAV_ITEMS = [
     {
         label: 'Administration',
         href: '/administration',
+        roles:[1]
     },
     {
         label: 'Tasks Management',
         href: '/task',
+        roles:[1]
     },
 ];
