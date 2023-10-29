@@ -16,7 +16,15 @@ import {
     useDisclosure,
     useColorMode,
     colorMode,
-    Image
+    Image,
+    Fade,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalCloseButton,
+    Spacer,
 } from '@chakra-ui/react';
 import {
     HamburgerIcon,
@@ -27,6 +35,7 @@ import {
     MoonIcon
 } from '@chakra-ui/icons';
 import Logo from '../../Media/images/logo.png'
+import LoginForm from '../Login';
 /**
  * The Header component displays the header section of a website. It includes a toggle for
  * color mode, a navigation menu, and buttons for login and color mode toggle.
@@ -34,85 +43,131 @@ import Logo from '../../Media/images/logo.png'
  */
 export default function Header() {
     const { colorMode, toggleColorMode } = useColorMode();
-    const { isOpen, onToggle } = useDisclosure();
+    const { isOpen: isOpenLogin, onClose: onCloseLogin, onToggle: onToggleLogin } = useDisclosure()
+    const { isOpen, onClose, onToggle } = useDisclosure()
 
     return (
-        <Box
-            as="section"
-        >
-            <Flex
-                bg={useColorModeValue('gray.800', 'gray.800')}
-                color={useColorModeValue('white', 'white')}
-                // position='fixed'
-                w={'full'}
-                py={{ base: 2 }}
-                px={{ base: 4 }}
-                borderBottom={5}
-                borderStyle={'solid'}
-                borderColor={'brand.primary'}
-                align={'center'}>
+        <>
+            <Box
+                as="section"
+            >
                 <Flex
-                    flex={{ base: 1, md: 'auto' }}
-                    ml={{ base: -2 }}
-                    display={{ base: 'flex', md: 'none' }}>
-                    <IconButton
-                        onClick={onToggle}
-                        icon={
-                            isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-                        }
-                        variant={'ghost'}
-                        aria-label={'Toggle Navigation'}
-                        color={'white'}
-                    />
-                </Flex>
-                <Flex 
-                
-                flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-
-                    <Image
-                        // w='200px'
-                        // h="60px"
-                        sizeBox={{ base: 'md', md: 'xs' }}
-                        objectFit='cover'
-                        src={Logo}
-                        alt='ESS'
-                        mx={2}
-                    />
-
-                    <Flex display={{ base: 'none', md: 'flex' }} ml={10} p={3}>
-                        <DesktopNav />
+                    bg={useColorModeValue('gray.800', 'gray.800')}
+                    color={useColorModeValue('white', 'white')}
+                    // position='fixed'
+                    w={'full'}
+                    py={{ base: 2 }}
+                    px={{ base: 4 }}
+                    borderBottom={5}
+                    borderStyle={'solid'}
+                    borderColor={'brand.primary'}
+                    align={'center'}>
+                    <Flex
+                        flex={{ base: 1, md: 'auto' }}
+                        ml={{ base: -2 }}
+                        display={{ base: 'flex', md: 'none' }}>
+                        <IconButton
+                            onClick={onToggle}
+                            icon={
+                                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+                            }
+                            variant={'ghost'}
+                            aria-label={'Toggle Navigation'}
+                            color={'white'}
+                        />
                     </Flex>
+                    <Flex
+
+                        flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+
+                        <Image
+                            // w='200px'
+                            // h="60px"
+                            sizeBox={{ base: 'md', md: 'xs' }}
+                            objectFit='cover'
+                            src={Logo}
+                            alt='ESS'
+                            mx={2}
+                        />
+
+                        <Flex display={{ base: 'none', md: 'flex' }} ml={10} p={3}>
+                            <DesktopNav />
+                        </Flex>
+                    </Flex>
+
+                    <Stack
+                        flex={{ base: 1, md: 0 }}
+                        justify={'flex-end'}
+                        direction={'row'}
+                        spacing={6}>
+
+                        <Button
+                            display={{ base: 'none', md: 'inline-flex' }}
+                            fontSize={'sm'}
+                            fontWeight={600}
+                            color={'white'}
+                            as={Link}
+                            bgGradient="linear(to-r, brand.primary, brand.secondary)"
+                            onClick={onToggleLogin}
+                            _hover={{
+                                bg: 'red.300',
+                            }}>
+                            connexion
+                        </Button>
+                        <Button onClick={toggleColorMode}>
+                            {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+                        </Button>
+                    </Stack>
                 </Flex>
 
-                <Stack
-                    flex={{ base: 1, md: 0 }}
-                    justify={'flex-end'}
-                    direction={'row'}
-                    spacing={6}>
+                <Collapse in={isOpen} animateOpacity>
+                    <MobileNav />
+                </Collapse>
+            </Box>
+            <Fade in={isOpenLogin}>
+                <Modal isOpen={isOpenLogin} onClose={onCloseLogin} size="xl" >
+                    <ModalOverlay
+                      bg='blackAlpha.300'
+                      backdropFilter='blur(10px) hue-rotate(90deg)'
+                    />
+                    <ModalContent>
+                        <ModalHeader
+                            bg={useColorModeValue('gray.800', 'gray.800')}
+                            color={"whiteAlpha.800"}
+                        >
+                            <Flex
 
-                    <Button
-                        display={{ base: 'none', md: 'inline-flex' }}
-                        fontSize={'sm'}
-                        fontWeight={600}
-                        color={'white'}
-                        as={Link}
-                        bgGradient="linear(to-r, brand.primary, brand.secondary)"
-                        href={'/login'}
-                        _hover={{
-                            bg: 'red.300',
-                        }}>
-                        connexion
-                    </Button>
-                    <Button onClick={toggleColorMode}>
-                        {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                    </Button>
-                </Stack>
-            </Flex>
+                                flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
 
-            <Collapse in={isOpen} animateOpacity>
-                <MobileNav />
-            </Collapse>
-        </Box>
+                                <Image
+                                    // w='200px'
+                                    // h="60px"
+                                    sizeBox={{ base: 'md', md: 'xs' }}
+                                    objectFit='cover'
+                                    src={Logo}
+                                    alt='ESS'
+                                    mx={2}
+                                />
+                                <Spacer />
+                                <Box>
+                                    <Text
+                                        bgGradient="linear(to-tr, brand.primary, brand.secondary)"
+                                        bgClip='text'
+                                        fontSize="3xl"
+                                        fontWeight={"bold"}>Authentication</Text>
+                                </Box>
+                            </Flex>
+                        </ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <LoginForm
+                                onClose={onCloseLogin}
+                            />
+                        </ModalBody>
+                    </ModalContent>
+                </Modal>
+            </Fade>
+        </>
     );
 }
 

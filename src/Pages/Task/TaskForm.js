@@ -33,14 +33,24 @@ const TaskForm = ({
     const schema = yup.object().shape({
         title: yup.string().required("The title is required"),
         description: yup.string().required("The description is required"),
-        // date: yup.string().required("The date is required"),
+        status: yup.string().required("The status is required"),
 
     });
+    const status = [
+        {
+            key: 1,
+            value: "In progress"
+        },
+        {
+            key: 2,
+            value: "Completed"
+        },
+    ]
     const onSubmit = async (data) => {
 
 
     }
-    const { register, handleSubmit,  formState: { errors, isSubmitting } } = useForm({
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: yupResolver(schema)
     });
 
@@ -55,8 +65,8 @@ const TaskForm = ({
                     </FormLabel>
                     <Input id="title" type="title" {...register("title")} name="title" placeholder="Enter the title" />
                     <FormErrorMessage>
-                            {errors?.title && errors?.title?.message}
-                        </FormErrorMessage>
+                        {errors?.title && errors?.title?.message}
+                    </FormErrorMessage>
                 </FormControl>
                 <FormControl mt="2%" isInvalid={errors?.description}>
                     <FormLabel htmlFor="description" fontWeight={'normal'}>
@@ -64,8 +74,28 @@ const TaskForm = ({
                     </FormLabel>
                     <Textarea id="description" type="description" {...register("description")} name="description" placeholder="Enter the description" />
                     <FormErrorMessage>
-                            {errors?.title && errors?.title?.message}
-                        </FormErrorMessage>
+                        {errors?.description && errors?.description?.message}
+                    </FormErrorMessage>
+                </FormControl>
+                <FormControl mt="2%" isInvalid={errors?.status}>
+                    <FormLabel htmlFor="description" fontWeight={'normal'}>
+                        Status*
+                    </FormLabel>
+                    <Select
+                        placeholder={`Selectionner status`}
+                        {...register("status")}
+                        name={"status"}
+                    >
+                        {status.map((item, key) => {
+                            return (
+                                <option value={item.key} >{item.value}</option>
+                            )
+                        })
+                        }
+                    </Select>
+                    <FormErrorMessage>
+                        {errors?.status && errors?.status?.message}
+                    </FormErrorMessage>
                 </FormControl>
                 {/* <Flex>
 

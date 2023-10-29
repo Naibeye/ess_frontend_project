@@ -26,6 +26,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useToast } from '@chakra-ui/react'
+import { roles } from '../data';
 
 const UserForm = ({
     onClose
@@ -49,15 +50,7 @@ const UserForm = ({
             <form
             >
 
-                <FormControl mt="2%" isInvalid={errors?.email}>
-                    <FormLabel htmlFor="email" fontWeight={'normal'}>
-                        Email address*
-                    </FormLabel>
-                    <Input id="email" type="email" {...register("email")} name="mail" placeholder="Enter the email" />
-                    <FormErrorMessage>
-                            {errors?.email && errors?.email?.message}
-                        </FormErrorMessage>
-                </FormControl>
+                
                 <Flex>
 
                     <FormControl mr="5%" isInvalid={errors?.name}>
@@ -81,6 +74,37 @@ const UserForm = ({
                         />
                     </FormControl>
 
+                </Flex>
+                <Flex>
+                <FormControl mr="5%" isInvalid={errors?.email}>
+                    <FormLabel htmlFor="email" fontWeight={'normal'}>
+                        Email address*
+                    </FormLabel>
+                    <Input id="email" type="email" {...register("email")} name="mail" placeholder="Enter the email" />
+                    <FormErrorMessage>
+                            {errors?.email && errors?.email?.message}
+                        </FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={errors?.role}>
+                    <FormLabel htmlFor="role" fontWeight={'normal'}>
+                        Role*
+                    </FormLabel>
+                    <Select
+                        placeholder={`Select role`}
+                        {...register("role")}
+                        name={"role"}
+                    >
+                        {roles.map((item, key) => {
+                            return (
+                                <option value={item.id} >{item.libelle}</option>
+                            )
+                        })
+                        }
+                    </Select>
+                    <FormErrorMessage>
+                            {errors?.role && errors?.role?.message}
+                        </FormErrorMessage>
+                </FormControl>
                 </Flex>
                 <ButtonGroup mt="5%" w="100%">
                     <Flex w="100%" justifyContent="space-between">

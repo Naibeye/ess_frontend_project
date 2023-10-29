@@ -48,6 +48,11 @@ function Task() {
             field: 'createdBy',
             lookup: { 1: 'John Doe', 2: 'Jane Doe' },
         },
+        {
+          title: 'Status',
+          field: 'status',
+          lookup: { 1: 'In process', 2: 'Completed' },
+      },
     ]
     return (
         <>

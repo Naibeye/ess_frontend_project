@@ -13,7 +13,7 @@ const RouteApplication = () => {
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/" element={<Home />} />
+                    <Route exact path="/" element={<Task />} />
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="/task" element={<Task />} />
                     <Route exact path="/administration" element={<Administration />} />

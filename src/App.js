@@ -7,6 +7,7 @@ import {
 import RouteApplication from './Route';
 import FooterSimple from './Pages/Footer';
 import Header from './Pages/Header';
+import { GlobalProvider } from './Pages/Context';
 
 
 const colors = {
@@ -33,11 +34,13 @@ const theme = extendTheme({ colors ,breakpoints })
 function App() {
   return (
     <ChakraProvider theme={theme}>
+      <GlobalProvider >
       <Header/>
       <Box minH="100vh" as="section" minW={{ base: "full", md: "100%", lg: "90%" }}>
       <RouteApplication />
       </Box>
       <FooterSimple/>
+      </GlobalProvider>
     </ChakraProvider>
   );
 }

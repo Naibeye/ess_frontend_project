@@ -53,6 +53,7 @@ function Administration() {
         {
             title: 'Role',
             field: 'role',
+            lookup: { 1: 'Administrator', 2: 'Standard' },
         }
     ]
     return (
